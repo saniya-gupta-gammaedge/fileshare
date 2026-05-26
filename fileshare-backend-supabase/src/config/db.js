@@ -7,6 +7,7 @@ export const pool = new Pool({
   connectionString: env.databaseUrl,
   ssl: env.isDev ? false : { rejectUnauthorized: false },
   max: 10,
+  family: 4,
 })
 
 /**
