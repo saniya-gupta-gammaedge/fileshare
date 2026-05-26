@@ -1,0 +1,88 @@
+.tree {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.treeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--clr-border);
+  background: var(--clr-surface2);
+}
+
+.treeTitle {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--clr-text);
+  font-family: var(--font-mono);
+}
+
+.treeSize {
+  font-size: 0.75rem;
+  color: var(--clr-text3);
+  font-family: var(--font-mono);
+}
+
+.list {
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--clr-border);
+  font-size: 0.8125rem;
+  transition: background var(--trans);
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.item:hover {
+  background: var(--clr-surface2);
+}
+
+.fileIcon {
+  color: var(--clr-accent);
+  flex-shrink: 0;
+  font-size: 0.75rem;
+}
+
+.fileName {
+  flex: 1;
+  color: var(--clr-text);
+  font-family: var(--font-mono);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fileSize {
+  font-family: var(--font-mono);
+  color: var(--clr-text3);
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+.removeBtn {
+  color: var(--clr-text3);
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0 var(--space-1);
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  transition: color var(--trans), background var(--trans);
+}
+
+.removeBtn:hover {
+  color: var(--clr-danger);
+  background: rgba(248, 113, 113, 0.1);
+}

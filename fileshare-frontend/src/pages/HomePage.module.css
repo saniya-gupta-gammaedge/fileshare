@@ -1,0 +1,200 @@
+.page {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Hero ─────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  padding: var(--space-12) var(--space-6);
+}
+
+.heroInner {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--clr-accent);
+  background: var(--clr-accent-dim);
+  border: 1px solid var(--clr-accent);
+  border-radius: 99px;
+  padding: var(--space-1) var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.headline {
+  font-size: clamp(2.8rem, 7vw, 5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--clr-text);
+  margin-bottom: var(--space-6);
+}
+
+.accent {
+  color: var(--clr-accent);
+}
+
+.sub {
+  font-size: 1.125rem;
+  color: var(--clr-text2);
+  line-height: 1.7;
+  max-width: 520px;
+  margin: 0 auto var(--space-10);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+/* Decorative background grid */
+.grid {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+.gridCell {
+  border: 1px solid var(--clr-accent);
+}
+
+/* ── Buttons ──────────────────────────────────────────── */
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--clr-bg);
+  background: var(--clr-accent);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-md);
+  transition: background var(--trans), transform var(--trans), box-shadow var(--trans);
+}
+
+.btnPrimary:hover {
+  background: var(--clr-accent2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px var(--clr-accent-dim);
+}
+
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--clr-text2);
+  padding: var(--space-3) var(--space-5);
+  border: 1px solid var(--clr-border2);
+  border-radius: var(--radius-md);
+  transition: color var(--trans), border-color var(--trans), background var(--trans);
+}
+
+.btnSecondary:hover {
+  color: var(--clr-text);
+  border-color: var(--clr-text3);
+  background: var(--clr-surface2);
+}
+
+/* ── Features ─────────────────────────────────────────── */
+.features {
+  padding: var(--space-12) var(--space-6);
+  border-top: 1px solid var(--clr-border);
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.sectionTitle {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--clr-text);
+  margin-bottom: var(--space-8);
+  text-align: center;
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-4);
+}
+
+.featureCard {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  transition: border-color var(--trans), background var(--trans);
+}
+
+.featureCard:hover {
+  border-color: var(--clr-border2);
+  background: var(--clr-surface2);
+}
+
+.featureIcon {
+  display: block;
+  font-size: 1.5rem;
+  color: var(--clr-accent);
+  margin-bottom: var(--space-4);
+}
+
+.featureTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--clr-text);
+  margin-bottom: var(--space-2);
+}
+
+.featureDesc {
+  font-size: 0.875rem;
+  color: var(--clr-text2);
+  line-height: 1.6;
+}
+
+/* ── CTA strip ────────────────────────────────────────── */
+.ctaStrip {
+  border-top: 1px solid var(--clr-border);
+  padding: var(--space-12) var(--space-6);
+}
+
+.ctaStrip .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.ctaText {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--clr-text);
+}

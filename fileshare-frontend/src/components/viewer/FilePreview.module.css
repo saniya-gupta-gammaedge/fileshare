@@ -1,0 +1,139 @@
+.pane {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--clr-bg);
+}
+
+.paneHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-2) var(--space-5);
+  border-bottom: 1px solid var(--clr-border);
+  background: var(--clr-surface);
+  flex-shrink: 0;
+}
+
+.panePath {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--clr-text2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.downloadFileBtn {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--clr-accent);
+  border: 1px solid var(--clr-accent);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  transition: background var(--trans), color var(--trans);
+}
+
+.downloadFileBtn:hover {
+  background: var(--clr-accent);
+  color: var(--clr-bg);
+}
+
+.content {
+  flex: 1;
+  overflow: auto;
+}
+
+/* Code */
+.code {
+  margin: 0;
+  padding: var(--space-6);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: var(--clr-text);
+  white-space: pre;
+  tab-size: 2;
+}
+
+/* Image */
+.imageWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  padding: var(--space-8);
+}
+
+.image {
+  max-width: 100%;
+  max-height: calc(100vh - 160px);
+  border-radius: var(--radius-md);
+}
+
+/* PDF */
+.iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: #fff;
+}
+
+/* Unsupported */
+.unsupported {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-5);
+  height: 100%;
+  padding: var(--space-10);
+  text-align: center;
+}
+
+.unsupportedText {
+  font-size: 0.9375rem;
+  color: var(--clr-text2);
+}
+
+.downloadBig {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--clr-bg);
+  background: var(--clr-accent);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-md);
+  transition: background var(--trans);
+}
+
+.downloadBig:hover {
+  background: var(--clr-accent2);
+}
+
+/* Empty state */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  height: 100%;
+  color: var(--clr-text3);
+  font-size: 0.9375rem;
+}
+
+.emptyIcon {
+  font-size: 2rem;
+  color: var(--clr-border2);
+}
+
+/* Loading */
+.loading {
+  padding: var(--space-8);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--clr-text3);
+}

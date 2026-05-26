@@ -1,0 +1,54 @@
+.viewer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--clr-bg);
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  height: 100vh;
+  color: var(--clr-text2);
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 2px solid var(--clr-border2);
+  border-top-color: var(--clr-accent);
+  border-radius: 50%;
+  animation: spin 700ms linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loadingText {
+  font-size: 0.875rem;
+  font-family: var(--font-mono);
+  color: var(--clr-text3);
+}
+
+.errorIcon {
+  font-size: 2rem;
+  color: var(--clr-danger);
+}
+
+.errorText {
+  font-size: 0.9375rem;
+  color: var(--clr-text2);
+  max-width: 360px;
+  text-align: center;
+}

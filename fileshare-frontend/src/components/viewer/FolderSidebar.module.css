@@ -1,0 +1,114 @@
+.sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--clr-border);
+  background: var(--clr-surface);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.searchWrap {
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--clr-border);
+}
+
+.search {
+  width: 100%;
+  background: var(--clr-surface2);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.8125rem;
+  color: var(--clr-text);
+  outline: none;
+  transition: border-color var(--trans);
+}
+
+.search:focus {
+  border-color: var(--clr-accent);
+}
+
+.search::placeholder {
+  color: var(--clr-text3);
+}
+
+.tree {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-2) 0;
+}
+
+.dirRow,
+.fileRow {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-top: var(--space-1);
+  padding-bottom: var(--space-1);
+  padding-right: var(--space-3);
+  text-align: left;
+  font-size: 0.8125rem;
+  color: var(--clr-text2);
+  border-radius: 0;
+  transition: background var(--trans), color var(--trans);
+  cursor: pointer;
+}
+
+.dirRow:hover,
+.fileRow:hover {
+  background: var(--clr-surface2);
+  color: var(--clr-text);
+}
+
+.fileRow.selected {
+  background: var(--clr-accent-dim);
+  color: var(--clr-accent);
+}
+
+.arrow {
+  font-size: 0.625rem;
+  color: var(--clr-text3);
+  width: 10px;
+  flex-shrink: 0;
+}
+
+.dirIcon {
+  color: var(--clr-accent);
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+.dirName {
+  flex: 1;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fileIcon {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: var(--clr-text3);
+  width: 18px;
+  flex-shrink: 0;
+  letter-spacing: -0.05em;
+}
+
+.fileName {
+  flex: 1;
+  font-family: var(--font-mono);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fileSize {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--clr-text3);
+  flex-shrink: 0;
+}

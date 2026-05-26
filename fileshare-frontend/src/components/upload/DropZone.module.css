@@ -1,0 +1,52 @@
+.zone {
+  border: 1.5px dashed var(--clr-border2);
+  border-radius: var(--radius-lg);
+  background: var(--clr-surface);
+  cursor: pointer;
+  transition: border-color var(--trans), background var(--trans);
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.zone:hover,
+.zone.active {
+  border-color: var(--clr-accent);
+  background: var(--clr-accent-dim);
+}
+
+.zone.compact {
+  min-height: 100px;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  text-align: center;
+  pointer-events: none;
+}
+
+.iconWrap {
+  color: var(--clr-text3);
+  transition: color var(--trans);
+}
+
+.zone:hover .iconWrap,
+.zone.active .iconWrap {
+  color: var(--clr-accent);
+}
+
+.label {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--clr-text);
+}
+
+.hint {
+  font-size: 0.8125rem;
+  color: var(--clr-text2);
+}

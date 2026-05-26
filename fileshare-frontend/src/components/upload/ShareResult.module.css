@@ -1,0 +1,112 @@
+.card {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-12);
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.icon {
+  width: 56px;
+  height: 56px;
+  background: var(--clr-accent-dim);
+  border: 1.5px solid var(--clr-accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--clr-accent);
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--clr-text);
+}
+
+.desc {
+  font-size: 0.9375rem;
+  color: var(--clr-text2);
+}
+
+.linkRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  background: var(--clr-surface2);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4);
+}
+
+.url {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--clr-accent);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.copyBtn {
+  flex-shrink: 0;
+  background: var(--clr-accent);
+  color: var(--clr-bg);
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  transition: background var(--trans);
+}
+
+.copyBtn:hover {
+  background: var(--clr-accent2);
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.viewBtn {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--clr-bg);
+  background: var(--clr-accent);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-md);
+  transition: background var(--trans);
+}
+
+.viewBtn:hover {
+  background: var(--clr-accent2);
+}
+
+.resetBtn {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--clr-text2);
+  padding: var(--space-3) var(--space-5);
+  border: 1px solid var(--clr-border2);
+  border-radius: var(--radius-md);
+  transition: color var(--trans), border-color var(--trans);
+}
+
+.resetBtn:hover {
+  color: var(--clr-text);
+  border-color: var(--clr-text3);
+}
