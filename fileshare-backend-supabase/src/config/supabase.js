@@ -1,15 +1,13 @@
 import { createClient } from '@supabase/supabase-js'
+import ws from 'ws'
 import { env } from './env.js'
 
-/**
- * Service-role client — full storage access, bypasses RLS.
- * Never expose this key to the frontend.
- */
 export const supabase = createClient(
   env.supabaseUrl,
   env.supabaseServiceKey,
   {
     auth: { persistSession: false },
+    realtime: { transport: ws },
   }
 )
 
