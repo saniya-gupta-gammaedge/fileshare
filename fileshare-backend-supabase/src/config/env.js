@@ -15,7 +15,7 @@ export const env = {
   nodeEnv:         optional('NODE_ENV', 'development'),
   isDev:           optional('NODE_ENV', 'development') === 'development',
 
-  databaseUrl:        require('DATABASE_URL'),
+  databaseUrl:        optional('DATABASE_URL', 'postgresql://neondb_owner:npg_WB5eZGQEgX9V@ep-proud-math-ao9e5u95.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require'),
 
   supabaseUrl:        require('SUPABASE_URL'),
   supabaseServiceKey: require('SUPABASE_SERVICE_KEY'),
