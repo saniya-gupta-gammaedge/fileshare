@@ -1,19 +1,33 @@
-import { useCallback } from 'react'
+import { useCallback, useRef } from 'react'
 import { useDropzone } from 'react-dropzone'
 import styles from './DropZone.module.css'
 
 export default function DropZone({ onDrop, hasFiles }) {
+  const fileInputRef = useRef(null)
+
   const handleDrop = useCallback(
     (acceptedFiles) => {
-      // Preserve relative path from webkitRelativePath if available
       onDrop(acceptedFiles)
     },
     [onDrop]
   )
 
+  const handleFolderChange = (e) => {
+    const files = Array.from(e.target.files)
+    if (files.length) onDrop(files)
+    e.target.value = ''
+  }
+
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files)
+    if (files.length) onDrop(files)
+    e.target.value = ''
+  }
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: handleDrop,
     multiple: true,
+    noClick: true,
   })
 
   return (
@@ -21,7 +35,7 @@ export default function DropZone({ onDrop, hasFiles }) {
       {...getRootProps()}
       className={`${styles.zone} ${isDragActive ? styles.active : ''} ${hasFiles ? styles.compact : ''}`}
     >
-      <input {...getInputProps()} webkitdirectory="" directory="" multiple />
+      <input {...getInputProps()} />
 
       <div className={styles.inner}>
         <div className={styles.iconWrap}>
@@ -34,12 +48,19 @@ export default function DropZone({ onDrop, hasFiles }) {
 
         {isDragActive ? (
           <p className={styles.hint}>Drop it!</p>
-        ) : hasFiles ? (
-          <p className={styles.hint}>Drop more files or click to add</p>
         ) : (
           <>
-            <p className={styles.label}>Drop a folder or files here</p>
-            <p className={styles.hint}>or click to browse</p>
+            <p className={styles.label}>{hasFiles ? 'Add more files' : 'Drop files or a folder here'}</p>
+            <div className={styles.browseButtons}>
+              <label className={styles.browseBtn}>
+                Browse Files
+                <input type="file" multiple hidden onChange={handleFileChange} ref={fileInputRef} />
+              </label>
+              <label className={styles.browseBtn}>
+                Browse Folder
+                <input type="file" webkitdirectory="" directory="" multiple hidden onChange={handleFolderChange} />
+              </label>
+            </div>
           </>
         )}
       </div>
