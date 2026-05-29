@@ -21,7 +21,7 @@ export const env = {
   supabaseServiceKey: optional('SUPABASE_SERVICE_KEY', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZlbmlhaXFqa25ucWJhaGF2cWFjIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3OTc3NjU5NiwiZXhwIjoyMDk1MzUyNTk2fQ.2GuvVTxn_KhcEJLDyf9U5PZakEuFpwejYnhDus5iMNs'),
   supabaseBucket:     optional('SUPABASE_BUCKET', 'fileshare'),
 
-  frontendUrl:     optional('FRONTEND_URL', 'https://fileshare-lovat.vercel.app'),
+  frontendUrl:     'https://fileshare-lovat.vercel.app',
   maxUploadBytes:  Number(optional('MAX_UPLOAD_BYTES', String(100 * 1024 * 1024))),
   appSecret:       optional('APP_SECRET', 'dev_secret'),
 }
