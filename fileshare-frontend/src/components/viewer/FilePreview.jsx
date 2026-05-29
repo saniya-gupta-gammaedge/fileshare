@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import styles from './FilePreview.module.css'
+import { BASE } from '../../services/api.js'
 
 const CODE_EXTS = new Set([
   'js','jsx','ts','tsx','py','rb','go','rs','java','c','cpp','h',
@@ -19,7 +20,7 @@ export default function FilePreview({ file, shareId }) {
   }
 
   const ext = file.name.split('.').pop()?.toLowerCase()
-  const previewUrl = `/api/shares/${shareId}/files/${encodeURIComponent(file.path)}`
+  const previewUrl = `${BASE}/shares/${shareId}/files/${encodeURIComponent(file.path)}`
 
   return (
     <div className={styles.pane}>

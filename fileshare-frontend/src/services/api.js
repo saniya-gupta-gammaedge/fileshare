@@ -4,7 +4,7 @@
  * Base URL is picked from env var so it works
  * in both dev (proxy) and production.
  */
-const BASE = import.meta.env.VITE_API_URL ?? '/api'
+export const BASE = import.meta.env.VITE_API_URL ?? '/api'
 
 // ── Uploads ────────────────────────────────────────────
 
