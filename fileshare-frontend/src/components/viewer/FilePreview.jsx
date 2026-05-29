@@ -9,7 +9,7 @@ const CODE_EXTS = new Set([
 ])
 const IMAGE_EXTS = new Set(['png','jpg','jpeg','gif','webp','svg'])
 
-export default function FilePreview({ file, shareId }) {
+export default function FilePreview({ file, shareId, password }) {
   if (!file) {
     return (
       <div className={styles.empty}>
@@ -20,7 +20,8 @@ export default function FilePreview({ file, shareId }) {
   }
 
   const ext = file.name.split('.').pop()?.toLowerCase()
-  const previewUrl = `${BASE}/shares/${shareId}/files/${encodeURIComponent(file.path)}`
+  const qs = password ? `?p=${encodeURIComponent(password)}` : ''
+  const previewUrl = `${BASE}/shares/${shareId}/files/${encodeURIComponent(file.path)}${qs}`
 
   return (
     <div className={styles.pane}>

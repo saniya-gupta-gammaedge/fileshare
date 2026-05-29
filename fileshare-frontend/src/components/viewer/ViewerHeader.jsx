@@ -3,11 +3,11 @@ import { formatBytes } from '@/utils/format'
 import { downloadZip } from '@/services/api'
 import styles from './ViewerHeader.module.css'
 
-export default function ViewerHeader({ share, shareId }) {
+export default function ViewerHeader({ share, shareId, password }) {
   const totalSize = share.files?.reduce((s, f) => s + f.size, 0) ?? 0
 
   const handleDownload = async () => {
-    await downloadZip(shareId)
+    await downloadZip(shareId, password)
   }
 
   return (

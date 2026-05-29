@@ -13,6 +13,7 @@ export default function SharePage() {
   const [selectedFile, setSelectedFile] = useState(null)
   const [status, setStatus]           = useState('loading') // loading | locked | ready | error
   const [error, setError]             = useState(null)
+  const [password, setPassword]       = useState(null)
 
   useEffect(() => {
     async function load() {
@@ -34,10 +35,11 @@ export default function SharePage() {
     load()
   }, [shareId])
 
-  const handleUnlock = async (password) => {
+  const handleUnlock = async (pw) => {
     try {
-      const data = await getShare(shareId, password)
+      const data = await getShare(shareId, pw)
       setShare(data)
+      setPassword(pw)
       if (data.files?.length) setSelectedFile(data.files[0])
       setStatus('ready')
     } catch {
@@ -69,14 +71,14 @@ export default function SharePage() {
 
   return (
     <div className={styles.viewer}>
-      <ViewerHeader share={share} shareId={shareId} />
+      <ViewerHeader share={share} shareId={shareId} password={password} />
       <div className={styles.body}>
         <FolderSidebar
           files={share.files}
           selected={selectedFile}
           onSelect={setSelectedFile}
         />
-        <FilePreview file={selectedFile} shareId={shareId} />
+        <FilePreview file={selectedFile} shareId={shareId} password={password} />
       </div>
     </div>
   )

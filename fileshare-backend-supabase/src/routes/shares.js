@@ -78,7 +78,7 @@ router.get('/:shareId', readLimiter, async (req, res, next) => {
 router.get('/:shareId/files/:filePath(*)', readLimiter, async (req, res, next) => {
   try {
     const { shareId, filePath } = req.params
-    const password = req.headers['x-share-password'] ?? null
+    const password = req.headers['x-share-password'] ?? req.query.p ?? null
 
     // Verify share exists + not locked (reuse getShare auth logic)
     const share = await getShare(shareId, password)
@@ -114,7 +114,7 @@ router.get('/:shareId/files/:filePath(*)', readLimiter, async (req, res, next) =
 router.get('/:shareId/download', readLimiter, async (req, res, next) => {
   try {
     const { shareId } = req.params
-    const password = req.headers['x-share-password'] ?? null
+    const password = req.headers['x-share-password'] ?? req.query.p ?? null
 
     const share = await getShare(shareId, password)
     if (!share || share.locked) {

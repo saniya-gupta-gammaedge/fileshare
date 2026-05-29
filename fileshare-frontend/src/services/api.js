@@ -71,8 +71,9 @@ export async function getShare(shareId, password = null) {
 /**
  * Trigger a zip download for the entire share.
  */
-export async function downloadZip(shareId) {
-  const url = `${BASE}/shares/${shareId}/download`
+export async function downloadZip(shareId, password = null) {
+  const qs = password ? `?p=${encodeURIComponent(password)}` : ''
+  const url = `${BASE}/shares/${shareId}/download${qs}`
   const link = document.createElement('a')
   link.href = url
   link.download = `${shareId}.zip`
