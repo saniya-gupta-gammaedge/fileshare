@@ -1,10 +1,9 @@
 import { createClient } from '@supabase/supabase-js'
-import { fetch as undiciFetch, Agent } from 'undici'
+import nodeFetch from 'node-fetch'
 import ws from 'ws'
 import { env } from './env.js'
 
-const ipv4Agent = new Agent({ connect: { family: 4 } })
-const ipv4Fetch = (url, options) => undiciFetch(url, { ...options, dispatcher: ipv4Agent })
+const ipv4Fetch = (url, options) => nodeFetch(url, options)
 
 export const supabase = createClient(
   env.supabaseUrl,
