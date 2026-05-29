@@ -53,6 +53,11 @@ export async function getSignedUrl(key, expiresIn = 3600) {
  * Delete all files belonging to a share.
  * Lists all objects under the shares/{shareId}/ prefix then bulk-deletes.
  */
+export async function deleteFile(key) {
+  const { error } = await supabase.storage.from(BUCKET).remove([key])
+  if (error) throw new Error(`Failed to delete file: ${error.message}`)
+}
+
 export async function deleteShareFiles(shareId) {
   const prefix = `shares/${shareId}/`
 

@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { formatBytes } from '@/utils/format'
 import styles from './FolderSidebar.module.css'
 
-export default function FolderSidebar({ files, selected, onSelect }) {
+export default function FolderSidebar({ files, selected, onSelect, allowEdits, onDelete }) {
   const [search, setSearch] = useState('')
 
   const filtered = useMemo(
@@ -29,13 +29,13 @@ export default function FolderSidebar({ files, selected, onSelect }) {
         />
       </div>
       <div className={styles.tree}>
-        <TreeNode nodes={tree} selected={selected} onSelect={onSelect} depth={0} />
+        <TreeNode nodes={tree} selected={selected} onSelect={onSelect} depth={0} allowEdits={allowEdits} onDelete={onDelete} />
       </div>
     </aside>
   )
 }
 
-function TreeNode({ nodes, selected, onSelect, depth }) {
+function TreeNode({ nodes, selected, onSelect, depth, allowEdits, onDelete }) {
   const [collapsed, setCollapsed] = useState({})
 
   const toggle = (key) =>
@@ -63,6 +63,8 @@ function TreeNode({ nodes, selected, onSelect, depth }) {
                   selected={selected}
                   onSelect={onSelect}
                   depth={depth + 1}
+                  allowEdits={allowEdits}
+                  onDelete={onDelete}
                 />
               )}
             </div>
@@ -72,16 +74,24 @@ function TreeNode({ nodes, selected, onSelect, depth }) {
         // File node
         const isSelected = selected?.path === node.path
         return (
-          <button
+          <div
             key={node.path}
             className={`${styles.fileRow} ${isSelected ? styles.selected : ''}`}
             style={{ paddingLeft: `${12 + depth * 14}px` }}
-            onClick={() => onSelect(node.file)}
           >
-            <span className={styles.fileIcon}>{getFileIcon(node.name)}</span>
-            <span className={styles.fileName}>{node.name}</span>
-            <span className={styles.fileSize}>{formatBytes(node.file.size)}</span>
-          </button>
+            <button className={styles.fileRowBtn} onClick={() => onSelect(node.file)}>
+              <span className={styles.fileIcon}>{getFileIcon(node.name)}</span>
+              <span className={styles.fileName}>{node.name}</span>
+              <span className={styles.fileSize}>{formatBytes(node.file.size)}</span>
+            </button>
+            {allowEdits && (
+              <button
+                className={styles.deleteBtn}
+                onClick={(e) => { e.stopPropagation(); onDelete(node.file) }}
+                title="Delete file"
+              >✕</button>
+            )}
+          </div>
         )
       })}
     </>

@@ -71,6 +71,26 @@ export async function getShare(shareId, password = null) {
 /**
  * Trigger a zip download for the entire share.
  */
+export async function addFilesToShare(shareId, files, password = null) {
+  const form = new FormData()
+  for (const file of files) {
+    const path = file.webkitRelativePath || file.name
+    form.append('files', file, path)
+  }
+  const headers = {}
+  if (password) headers['X-Share-Password'] = password
+  const res = await fetch(`${BASE}/shares/${shareId}/files`, { method: 'POST', headers, body: form })
+  if (!res.ok) { const d = await res.json(); throw new Error(d.error ?? 'Upload failed') }
+  return res.json()
+}
+
+export async function deleteFileFromShare(shareId, fileId, password = null) {
+  const qs = password ? `?p=${encodeURIComponent(password)}` : ''
+  const res = await fetch(`${BASE}/shares/${shareId}/files/${fileId}${qs}`, { method: 'DELETE' })
+  if (!res.ok) { const d = await res.json(); throw new Error(d.error ?? 'Delete failed') }
+  return res.json()
+}
+
 export async function downloadZip(shareId, password = null) {
   const qs = password ? `?p=${encodeURIComponent(password)}` : ''
   const url = `${BASE}/shares/${shareId}/download${qs}`

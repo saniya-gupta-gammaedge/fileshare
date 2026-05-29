@@ -34,9 +34,9 @@ export async function createShare({ files, options }) {
 
   // Insert share record
   await query(
-    `INSERT INTO shares (id, password_hash, allow_download, expires_at)
-     VALUES ($1, $2, $3, $4)`,
-    [shareId, passwordHash, options.allowDownload ?? true, expiresAt]
+    `INSERT INTO shares (id, password_hash, allow_download, allow_edits, expires_at)
+     VALUES ($1, $2, $3, $4, $5)`,
+    [shareId, passwordHash, options.allowDownload ?? true, options.allowEdits ?? false, expiresAt]
   )
 
   // Upload each file to Supabase Storage and record metadata
@@ -94,7 +94,7 @@ export async function getShare(shareId, password = null) {
 
   // Fetch files
   const filesResult = await query(
-    `SELECT path, name, size, mime_type, storage_key
+    `SELECT id, path, name, size, mime_type, storage_key
      FROM share_files WHERE share_id = $1
      ORDER BY path`,
     [shareId]
@@ -103,10 +103,12 @@ export async function getShare(shareId, password = null) {
   return {
     id:            share.id,
     allowDownload: share.allow_download,
+    allowEdits:    share.allow_edits,
     expiresAt:     share.expires_at,
     createdAt:     share.created_at,
     viewCount:     share.view_count,
     files:         filesResult.rows.map((f) => ({
+      id:         f.id,
       path:       f.path,
       name:       f.name,
       size:       Number(f.size),

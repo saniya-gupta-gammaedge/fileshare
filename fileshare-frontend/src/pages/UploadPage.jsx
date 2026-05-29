@@ -9,7 +9,7 @@ import styles from './UploadPage.module.css'
 // Upload states: idle | selecting | uploading | done | error
 export default function UploadPage() {
   const [files, setFiles]       = useState([])   // flat list of File objects
-  const [options, setOptions]   = useState({ password: '', expiry: '7d', allowDownload: true })
+  const [options, setOptions]   = useState({ password: '', expiry: '7d', allowDownload: true, allowEdits: false })
   const [status, setStatus]     = useState('idle') // idle | uploading | done | error
   const [progress, setProgress] = useState(0)
   const [shareId, setShareId]   = useState(null)

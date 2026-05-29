@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import FolderSidebar from '@/components/viewer/FolderSidebar'
 import FilePreview from '@/components/viewer/FilePreview'
 import ViewerHeader from '@/components/viewer/ViewerHeader'
 import PasswordGate from '@/components/viewer/PasswordGate'
-import { getShare } from '@/services/api'
+import { getShare, addFilesToShare, deleteFileFromShare } from '@/services/api'
 import styles from './SharePage.module.css'
 
 export default function SharePage() {
@@ -34,6 +34,28 @@ export default function SharePage() {
     }
     load()
   }, [shareId])
+
+  const fileInputRef = useRef(null)
+
+  const refreshShare = async (pw = password) => {
+    const data = await getShare(shareId, pw)
+    setShare(data)
+  }
+
+  const handleAddFiles = async (e) => {
+    const files = Array.from(e.target.files)
+    if (!files.length) return
+    e.target.value = ''
+    await addFilesToShare(shareId, files, password)
+    await refreshShare()
+  }
+
+  const handleDeleteFile = async (file) => {
+    if (!window.confirm(`Delete "${file.name}"?`)) return
+    await deleteFileFromShare(shareId, file.id, password)
+    if (selectedFile?.id === file.id) setSelectedFile(null)
+    await refreshShare()
+  }
 
   const handleUnlock = async (pw) => {
     try {
@@ -77,8 +99,20 @@ export default function SharePage() {
           files={share.files}
           selected={selectedFile}
           onSelect={setSelectedFile}
+          allowEdits={share.allowEdits}
+          onDelete={handleDeleteFile}
         />
-        <FilePreview file={selectedFile} shareId={shareId} password={password} />
+        <div className={styles.main}>
+          {share.allowEdits && (
+            <div className={styles.editBar}>
+              <label className={styles.addBtn}>
+                + Add files
+                <input type="file" multiple hidden ref={fileInputRef} onChange={handleAddFiles} />
+              </label>
+            </div>
+          )}
+          <FilePreview file={selectedFile} shareId={shareId} password={password} />
+        </div>
       </div>
     </div>
   )

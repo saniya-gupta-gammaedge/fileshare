@@ -56,6 +56,20 @@
   cursor: pointer;
 }
 
+.fileRowBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 0.8125rem;
+  color: inherit;
+  cursor: pointer;
+  min-width: 0;
+}
+
 .dirRow:hover,
 .fileRow:hover {
   background: var(--clr-surface2);
@@ -65,6 +79,27 @@
 .fileRow.selected {
   background: var(--clr-accent-dim);
   color: var(--clr-accent);
+}
+
+.deleteBtn {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: var(--clr-text3);
+  cursor: pointer;
+  font-size: 0.75rem;
+  padding: 2px 4px;
+  border-radius: var(--radius-sm);
+  opacity: 0;
+  transition: opacity var(--trans), color var(--trans);
+}
+
+.fileRow:hover .deleteBtn {
+  opacity: 1;
+}
+
+.deleteBtn:hover {
+  color: #e53e3e;
 }
 
 .arrow {

@@ -12,6 +12,39 @@
   overflow: hidden;
 }
 
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.editBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--clr-border);
+  background: var(--clr-surface);
+}
+
+.addBtn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.9rem;
+  border: 1.5px solid var(--clr-accent);
+  border-radius: var(--radius);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--clr-accent);
+  cursor: pointer;
+  transition: background var(--trans);
+}
+
+.addBtn:hover {
+  background: var(--clr-accent-dim);
+}
+
 .centered {
   display: flex;
   flex-direction: column;

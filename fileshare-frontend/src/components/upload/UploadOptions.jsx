@@ -62,6 +62,22 @@ export default function UploadOptions({ options, onChange }) {
           <span className={styles.toggleThumb} />
         </button>
       </div>
+
+      {/* Allow edits toggle */}
+      <div className={styles.toggleRow}>
+        <div>
+          <p className={styles.toggleLabel}>Allow editing</p>
+          <p className={styles.toggleDesc}>Recipients can add or delete files</p>
+        </div>
+        <button
+          role="switch"
+          aria-checked={options.allowEdits}
+          className={`${styles.toggle} ${options.allowEdits ? styles.toggleOn : ''}`}
+          onClick={() => set('allowEdits', !options.allowEdits)}
+        >
+          <span className={styles.toggleThumb} />
+        </button>
+      </div>
     </div>
   )
 }

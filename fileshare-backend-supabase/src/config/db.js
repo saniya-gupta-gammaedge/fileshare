@@ -31,12 +31,17 @@ export async function migrate() {
     CREATE TABLE IF NOT EXISTS shares (
       id            TEXT PRIMARY KEY,
       name          TEXT,
-      password_hash TEXT,              -- null = no password
+      password_hash TEXT,
       allow_download BOOLEAN NOT NULL DEFAULT TRUE,
-      expires_at    TIMESTAMPTZ,       -- null = never
+      allow_edits   BOOLEAN NOT NULL DEFAULT FALSE,
+      expires_at    TIMESTAMPTZ,
       created_at    TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       view_count    INTEGER NOT NULL DEFAULT 0
     );
+  `)
+
+  await query(`
+    ALTER TABLE shares ADD COLUMN IF NOT EXISTS allow_edits BOOLEAN NOT NULL DEFAULT FALSE;
   `)
 
   await query(`
