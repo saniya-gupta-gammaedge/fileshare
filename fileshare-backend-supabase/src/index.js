@@ -1,5 +1,7 @@
 import dns from 'dns'
+import { Agent, setGlobalDispatcher } from 'undici'
 dns.setDefaultResultOrder('ipv4first')
+setGlobalDispatcher(new Agent({ connect: { family: 4 } }))
 
 import express from 'express'
 import cors from 'cors'
