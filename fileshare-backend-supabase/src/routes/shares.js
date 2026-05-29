@@ -99,8 +99,10 @@ router.get('/:shareId/files/:filePath(*)', readLimiter, async (req, res, next) =
     const stream = await getFileStream(storage_key)
 
     const safeName = name.replace(/[\r\n"\\]/g, '_')
+    const inlineTypes = /^(image\/|text\/|application\/pdf$)/
+    const disposition = inlineTypes.test(mime_type) ? 'inline' : 'attachment'
     res.setHeader('Content-Type', mime_type)
-    res.setHeader('Content-Disposition', `inline; filename="${safeName}"`)
+    res.setHeader('Content-Disposition', `${disposition}; filename="${safeName}"`)
     res.setHeader('Cache-Control', 'public, max-age=3600')
 
     stream.pipe(res)
