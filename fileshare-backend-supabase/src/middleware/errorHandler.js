@@ -16,6 +16,5 @@ export function errorHandler(err, req, res, next) {
   }
 
   const status = err.status ?? 500
-  const message = env.isDev ? err.message : 'Something went wrong'
-  res.status(status).json({ error: message })
+  res.status(status).json({ error: err.message })
 }

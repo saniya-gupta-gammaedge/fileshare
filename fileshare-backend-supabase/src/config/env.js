@@ -21,7 +21,7 @@ export const env = {
   supabaseServiceKey: require('SUPABASE_SERVICE_KEY'),
   supabaseBucket:     optional('SUPABASE_BUCKET', 'fileshare'),
 
-  frontendUrl:     optional('FRONTEND_URL', 'http://localhost:5173'),
+  frontendUrl:     optional('FRONTEND_URL', 'https://fileshare-lovat.vercel.app'),
   maxUploadBytes:  Number(optional('MAX_UPLOAD_BYTES', String(100 * 1024 * 1024))),
   appSecret:       optional('APP_SECRET', 'dev_secret'),
 }
