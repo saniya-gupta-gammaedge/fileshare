@@ -14,6 +14,7 @@ import sharesRouter from './routes/shares.js'
 import healthRouter from './routes/health.js'
 
 const app = express()
+app.set('trust proxy', 1)
 
 // ── Security headers ─────────────────────────────────────
 app.use(helmet({
