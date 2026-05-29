@@ -17,7 +17,7 @@ export const env = {
 
   databaseUrl:        optional('DATABASE_URL', 'postgresql://neondb_owner:npg_WB5eZGQEgX9V@ep-proud-math-ao9e5u95.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require'),
 
-  supabaseUrl:        optional('SUPABASE_URL', 'https://veniaiqjknnqbahavqac.supabase.co'),
+  supabaseUrl:        'https://veniaiqjknnqbahavqac.supabase.co',
   supabaseServiceKey: optional('SUPABASE_SERVICE_KEY', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZlbmlhaXFqa25ucWJhaGF2cWFjIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3OTc3NjU5NiwiZXhwIjoyMDk1MzUyNTk2fQ.2GuvVTxn_KhcEJLDyf9U5PZakEuFpwejYnhDus5iMNs'),
   supabaseBucket:     optional('SUPABASE_BUCKET', 'fileshare'),
 
