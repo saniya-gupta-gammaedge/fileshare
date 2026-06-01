@@ -5,6 +5,7 @@ import FilePreview from '@/components/viewer/FilePreview'
 import ViewerHeader from '@/components/viewer/ViewerHeader'
 import PasswordGate from '@/components/viewer/PasswordGate'
 import { getShare, addFilesToShare, deleteFileFromShare } from '@/services/api'
+import { filterFiles } from '@/utils/filterFiles'
 import styles from './SharePage.module.css'
 
 export default function SharePage() {
@@ -43,7 +44,7 @@ export default function SharePage() {
   }
 
   const handleAddFiles = async (e) => {
-    const files = Array.from(e.target.files)
+    const files = filterFiles(Array.from(e.target.files))
     if (!files.length) return
     e.target.value = ''
     await addFilesToShare(shareId, files, password)

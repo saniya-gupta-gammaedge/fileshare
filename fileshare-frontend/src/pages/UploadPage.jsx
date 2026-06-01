@@ -4,6 +4,7 @@ import FileTree from '@/components/upload/FileTree'
 import UploadOptions from '@/components/upload/UploadOptions'
 import ShareResult from '@/components/upload/ShareResult'
 import { uploadFiles } from '@/services/api'
+import { filterFiles } from '@/utils/filterFiles'
 import styles from './UploadPage.module.css'
 
 // Upload states: idle | selecting | uploading | done | error
@@ -16,7 +17,7 @@ export default function UploadPage() {
   const [error, setError]       = useState(null)
 
   const handleDrop = (droppedFiles) => {
-    setFiles(droppedFiles)
+    setFiles(filterFiles(droppedFiles))
     setStatus('idle')
     setShareId(null)
     setError(null)
