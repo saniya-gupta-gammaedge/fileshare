@@ -106,8 +106,12 @@ export default function SharePage() {
           {share.allowEdits && (
             <div className={styles.editBar}>
               <label className={styles.addBtn}>
-                + Add files
-                <input type="file" multiple hidden ref={fileInputRef} onChange={handleAddFiles} />
+                + Add Files
+                <input type="file" multiple hidden onChange={handleAddFiles} />
+              </label>
+              <label className={styles.addBtn}>
+                + Add Folder
+                <input type="file" webkitdirectory="" directory="" multiple hidden onChange={handleAddFiles} />
               </label>
             </div>
           )}
