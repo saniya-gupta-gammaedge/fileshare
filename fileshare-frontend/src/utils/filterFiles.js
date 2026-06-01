@@ -5,15 +5,15 @@ const IGNORED_NAMES = new Set([
 const IGNORED_EXTENSIONS = new Set([
   '.pyc', '.pyo', '.pyd',
   '.class',
-  '.o', '.obj', '.exe', '.dll', '.so', '.dylib',
-  '.log',
 ])
 
+// Only filter folders that are unambiguously auto-generated/junk
 const IGNORED_PATH_SEGMENTS = new Set([
-  '__pycache__', 'node_modules', '.git', '.svn', '.hg',
-  '.idea', '.vscode', 'dist', 'build', '.cache',
+  '__pycache__',
+  'node_modules',
+  '.git', '.svn', '.hg',
   '.pytest_cache', '.mypy_cache', '.ruff_cache',
-  'venv', '.venv', 'env', '.env',
+  '.venv', 'venv',
 ])
 
 export function filterFiles(files) {
