@@ -75,6 +75,23 @@ router.post('/:shareId/files', uploadLimiter, upload.array('files'), async (req,
   } catch (err) { next(err) }
 })
 
+// ── DELETE /api/shares/:shareId/files ────────────────────
+// Remove ALL files from a share (requires allowEdits).
+router.delete('/:shareId/files', async (req, res, next) => {
+  try {
+    const { shareId } = req.params
+    const password = req.headers['x-share-password'] ?? req.query.p ?? null
+    const share = await getShare(shareId, password)
+    if (!share || share.locked) return res.status(share?.locked ? 401 : 404).json({ error: 'Not found' })
+    if (!share.allowEdits) return res.status(403).json({ error: 'Editing not allowed for this share' })
+
+    const { rows } = await query(`SELECT storage_key FROM share_files WHERE share_id = $1`, [shareId])
+    await Promise.all(rows.map((r) => deleteFile(r.storage_key).catch(() => {})))
+    await query(`DELETE FROM share_files WHERE share_id = $1`, [shareId])
+    res.json({ ok: true })
+  } catch (err) { next(err) }
+})
+
 // ── DELETE /api/shares/:shareId/files/:fileId ────────────
 // Remove a file from a share (requires allowEdits).
 router.delete('/:shareId/files/:fileId', async (req, res, next) => {
@@ -88,7 +105,6 @@ router.delete('/:shareId/files/:fileId', async (req, res, next) => {
     const { rows } = await query(`SELECT storage_key FROM share_files WHERE id = $1 AND share_id = $2`, [fileId, shareId])
     if (!rows.length) return res.status(404).json({ error: 'File not found' })
 
-    const { deleteFile } = await import('../services/storage.js')
     await deleteFile(rows[0].storage_key)
     await query(`DELETE FROM share_files WHERE id = $1`, [fileId])
     res.json({ ok: true })

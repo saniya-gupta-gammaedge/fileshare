@@ -45,6 +45,23 @@
   background: var(--clr-accent-dim);
 }
 
+.deleteAllBtn {
+  margin-left: auto;
+  padding: 0.3rem 0.9rem;
+  border: 1.5px solid #e53e3e;
+  border-radius: var(--radius);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #e53e3e;
+  background: none;
+  cursor: pointer;
+  transition: background var(--trans);
+}
+
+.deleteAllBtn:hover {
+  background: #fff5f5;
+}
+
 .centered {
   display: flex;
   flex-direction: column;

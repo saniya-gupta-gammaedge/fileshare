@@ -4,7 +4,7 @@ import FolderSidebar from '@/components/viewer/FolderSidebar'
 import FilePreview from '@/components/viewer/FilePreview'
 import ViewerHeader from '@/components/viewer/ViewerHeader'
 import PasswordGate from '@/components/viewer/PasswordGate'
-import { getShare, addFilesToShare, deleteFileFromShare } from '@/services/api'
+import { getShare, addFilesToShare, deleteFileFromShare, deleteAllFilesFromShare } from '@/services/api'
 import { filterFiles } from '@/utils/filterFiles'
 import styles from './SharePage.module.css'
 
@@ -55,6 +55,13 @@ export default function SharePage() {
     if (!window.confirm(`Delete "${file.name}"?`)) return
     await deleteFileFromShare(shareId, file.id, password)
     if (selectedFile?.id === file.id) setSelectedFile(null)
+    await refreshShare()
+  }
+
+  const handleDeleteAll = async () => {
+    if (!window.confirm('Delete all files from this share? This cannot be undone.')) return
+    await deleteAllFilesFromShare(shareId, password)
+    setSelectedFile(null)
     await refreshShare()
   }
 
@@ -114,6 +121,11 @@ export default function SharePage() {
                 + Add Folder
                 <input type="file" webkitdirectory="" directory="" multiple hidden onChange={handleAddFiles} />
               </label>
+              {share.files?.length > 0 && (
+                <button className={styles.deleteAllBtn} onClick={handleDeleteAll}>
+                  Delete All
+                </button>
+              )}
             </div>
           )}
           <FilePreview file={selectedFile} shareId={shareId} password={password} />

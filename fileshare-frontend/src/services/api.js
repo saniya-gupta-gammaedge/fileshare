@@ -91,6 +91,13 @@ export async function deleteFileFromShare(shareId, fileId, password = null) {
   return res.json()
 }
 
+export async function deleteAllFilesFromShare(shareId, password = null) {
+  const qs = password ? `?p=${encodeURIComponent(password)}` : ''
+  const res = await fetch(`${BASE}/shares/${shareId}/files${qs}`, { method: 'DELETE' })
+  if (!res.ok) { const d = await res.json(); throw new Error(d.error ?? 'Delete failed') }
+  return res.json()
+}
+
 export async function downloadZip(shareId, password = null) {
   const qs = password ? `?p=${encodeURIComponent(password)}` : ''
   const url = `${BASE}/shares/${shareId}/download${qs}`
