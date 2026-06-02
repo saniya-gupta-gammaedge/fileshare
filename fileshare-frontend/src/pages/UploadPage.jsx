@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import DropZone from '@/components/upload/DropZone'
 import FileTree from '@/components/upload/FileTree'
 import UploadOptions from '@/components/upload/UploadOptions'
@@ -7,17 +7,50 @@ import { uploadFiles } from '@/services/api'
 import { filterFiles } from '@/utils/filterFiles'
 import styles from './UploadPage.module.css'
 
-// Upload states: idle | selecting | uploading | done | error
+const MAX_BYTES = 100 * 1024 * 1024 // 100 MB
+const SAVED_OPTIONS_KEY = 'fileshare_options'
+const SAVED_SHARE_KEY   = 'fileshare_last_share'
+
+function loadSavedOptions() {
+  try { return JSON.parse(localStorage.getItem(SAVED_OPTIONS_KEY)) ?? null } catch { return null }
+}
+function loadSavedShare() {
+  try { return JSON.parse(localStorage.getItem(SAVED_SHARE_KEY)) ?? null } catch { return null }
+}
+
 export default function UploadPage() {
-  const [files, setFiles]       = useState([])   // flat list of File objects
-  const [options, setOptions]   = useState({ password: '', expiry: '7d', allowDownload: true, allowEdits: false })
-  const [status, setStatus]     = useState('idle') // idle | uploading | done | error
+  const saved = loadSavedShare()
+  const [files, setFiles]       = useState([])
+  const [options, setOptions]   = useState(
+    loadSavedOptions() ?? { password: '', expiry: '7d', allowDownload: true, allowEdits: false }
+  )
+  const [status, setStatus]     = useState(saved ? 'done' : 'idle')
   const [progress, setProgress] = useState(0)
-  const [shareId, setShareId]   = useState(null)
+  const [shareId, setShareId]   = useState(saved?.shareId ?? null)
   const [error, setError]       = useState(null)
 
+  // Persist options whenever they change
+  useEffect(() => {
+    localStorage.setItem(SAVED_OPTIONS_KEY, JSON.stringify({ ...options, password: '' }))
+  }, [options])
+
+  // Warn before accidental refresh/navigation when files are selected
+  useEffect(() => {
+    const handler = (e) => {
+      if (files.length > 0 && status !== 'done') {
+        e.preventDefault()
+        e.returnValue = ''
+      }
+    }
+    window.addEventListener('beforeunload', handler)
+    return () => window.removeEventListener('beforeunload', handler)
+  }, [files.length, status])
+
+  const totalBytes = files.reduce((s, f) => s + f.size, 0)
+  const overLimit  = totalBytes > MAX_BYTES
+
   const handleDrop = (droppedFiles) => {
-    setFiles(filterFiles(droppedFiles))
+    setFiles((prev) => filterFiles([...prev, ...droppedFiles]))
     setStatus('idle')
     setShareId(null)
     setError(null)
@@ -33,10 +66,11 @@ export default function UploadPage() {
     setShareId(null)
     setError(null)
     setProgress(0)
+    localStorage.removeItem(SAVED_SHARE_KEY)
   }
 
   const handleUpload = async () => {
-    if (!files.length) return
+    if (!files.length || overLimit) return
     setStatus('uploading')
     setProgress(0)
     setError(null)
@@ -45,10 +79,17 @@ export default function UploadPage() {
       const result = await uploadFiles(files, options, (pct) => setProgress(pct))
       setShareId(result.shareId)
       setStatus('done')
+      localStorage.setItem(SAVED_SHARE_KEY, JSON.stringify({ shareId: result.shareId }))
     } catch (err) {
       setError(err.message || 'Upload failed. Please try again.')
       setStatus('error')
     }
+  }
+
+  const formatBytes = (b) => {
+    if (b < 1024) return `${b} B`
+    if (b < 1024 ** 2) return `${(b / 1024).toFixed(1)} KB`
+    return `${(b / 1024 ** 2).toFixed(1)} MB`
   }
 
   return (
@@ -58,6 +99,7 @@ export default function UploadPage() {
           <h1 className={styles.title}>Upload & share</h1>
           <p className={styles.subtitle}>
             Drop a folder or pick files — you'll get a link in seconds.
+            <span className={styles.limit}> Max 100 MB per share.</span>
           </p>
         </header>
 
@@ -65,15 +107,19 @@ export default function UploadPage() {
           <ShareResult shareId={shareId} onReset={handleClear} />
         ) : (
           <div className={styles.body}>
-            {/* Left column: drop zone + file tree */}
             <div className={styles.left}>
               <DropZone onDrop={handleDrop} hasFiles={files.length > 0} />
               {files.length > 0 && (
-                <FileTree files={files} onRemove={handleRemoveFile} />
+                <>
+                  <div className={`${styles.sizeBar} ${overLimit ? styles.sizeOver : ''}`}>
+                    <span>{formatBytes(totalBytes)} / 100 MB</span>
+                    {overLimit && <span>⚠ Too large — remove some files</span>}
+                  </div>
+                  <FileTree files={files} onRemove={handleRemoveFile} />
+                </>
               )}
             </div>
 
-            {/* Right column: options + upload button */}
             <div className={styles.right}>
               <UploadOptions options={options} onChange={setOptions} />
 
@@ -97,7 +143,7 @@ export default function UploadPage() {
                 <button
                   className={styles.uploadBtn}
                   onClick={handleUpload}
-                  disabled={!files.length}
+                  disabled={!files.length || overLimit}
                 >
                   {files.length
                     ? `Upload ${files.length} file${files.length > 1 ? 's' : ''} →`

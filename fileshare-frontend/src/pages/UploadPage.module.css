@@ -25,6 +25,25 @@
   color: var(--clr-text2);
 }
 
+.limit {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--clr-text3);
+}
+
+.sizeBar {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8125rem;
+  font-family: var(--font-mono);
+  color: var(--clr-text3);
+  padding: var(--space-1) 0;
+}
+
+.sizeOver {
+  color: #e53e3e;
+}
+
 .body {
   display: grid;
   grid-template-columns: 1fr 340px;
